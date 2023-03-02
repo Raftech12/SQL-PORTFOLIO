@@ -1,0 +1,43 @@
+#Here are the Netflix Analytics project that I had, where I used a Netflix database to answer a series of questions.
+
+
+
+/* HOW MANY MOVIES ARE IN THE DATABASE?*/
+Select count (*)
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+where type = 'Movie';
+
+/* List all the movies and tv shows in alphabetical order */
+select title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title asc;
+
+/*  When was the most recent batch of tv shows and/or movies added to the database? */
+Select max (date (date_added))
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+
+/* Who was the Director for the movie Bright Star?*/
+Select 
+director
+From "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+Left Join "CharlotteChaze/BreakIntoTech"."netflix_people" peoples
+On titles.show_id=peoples.show_id
+Where titles.title='Bright Star'
+
+/*  What is the oldest movie in the database and what year was it made?*/
+select title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year asc
+LIMIT 1; 
+
+/* What is the oldest movie in the database and what year was it made?*/
+SELECT 
+title, 
+release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+Where type = 'Movie'
+and release_year <=
+(SELECT MIN (release_year)
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type = 'Movie' )
