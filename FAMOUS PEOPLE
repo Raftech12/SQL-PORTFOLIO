@@ -1,0 +1,59 @@
+In this project, you’re going to make your own table with some small set of “famous people”, then make more tables about things they do and join those to create nice human readable lists.
+
+For example, here are types of famous people and the questions your data could answer:
+
+Movie stars: What movies are they in? Are they married to each other?
+Singers: What songs did they write? Where are they from?
+Authors: What books did they write?
+Fictional characters: How are they related to other characters? What books do they show up in?
+
+/* Create table about the people and what they do here */
+
+CREATE TABLE authors(
+    id INTEGER PRIMARY KEY autoincrement,
+    fullname TEXT,
+    nationality TEXT,
+    age integer);
+    
+Insert into authors ( fullname, nationality, age) Values ("JR Tolkien", "UK", 81);
+Insert into authors ( fullname, nationality, age) Values ("JK Rowling", "UK", 57);
+Insert into authors ( fullname, nationality, age) Values ("Stephanie Meyer", "USA", 49);
+Insert into authors (fullname, nationality, age) Values ("Suzanne Collins", "USA", 60);
+Insert into authors ( fullname, nationality, age) Values ("George RR Martin", "USA", 74);
+
+
+Create Table books(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    genre text,
+    name text,
+    sold integer);
+    
+Insert into books( genre, name, sold) Values ( "fantasy","Lord of the Rings", 150);
+Insert into books (genre, name, sold) Values ( "fantasy", "Harry Potter Series",600);
+Insert into books (genre, name, sold) Values (
+"fantasy romance", "Twilight Series",160);
+Insert into books (genre, name,sold) Values ("Dystopian fiction" ,"HUNGER GAMES", 100);
+Insert into books (genre, name, sold) Values ("fantasy", "Game of Thrones", 90);
+
+
+Select authors.fullname, books.name as Title 
+    From authors
+    join books
+    on authors.id = books.id;
+
+//* Last known age of the author, current year and or death*//
+Select authors.fullname, authors.age
+    from authors 
+    join authors two
+    On authors.id = two.id
+    order by authors.age;
+    
+//* book sold in the millions*//
+select books.name, books.sold
+    from books
+    join books two
+    On books.id = two.id
+    order by books.sold;
+    
+
+
